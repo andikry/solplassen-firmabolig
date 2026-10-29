@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Firmabolig i Stavern – hytter for bedrifter og arbeidslag | Solplassen Camping</title>
+<meta name="description" content="Møblerte hytter for bedrifter og arbeidslag i Stavern. Opptil 22 hytter med kjøkken og bad. Fra 800 kr per hytte per døgn ved opphold over 14 døgn. Sengetøy inkludert.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f6f4ef;
+    --white: #ffffff;
+    --ink: #1d211f;
+    --muted: #5c625e;
+    --rule: #d9d5cb;
+    --green: #23402f;
+    --green-dark: #1a3124;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3, p { margin: 0; }
+  a { color: inherit; }
+
+  h1, h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+  }
+  h1 { font-size: clamp(2.3rem, 4.2vw, 3.6rem); }
+  h2 { font-size: clamp(1.7rem, 2.6vw, 2.25rem); }
+  h3 { font-size: 1rem; font-weight: 600; }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  /* Header */
+  .site-header {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .site-header .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px; gap: 24px;
+  }
+  .logo { text-decoration: none; font-family: var(--serif); font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em; }
+  .nav { display: flex; align-items: center; gap: 32px; font-size: 0.94rem; }
+  .nav a { text-decoration: none; color: var(--muted); }
+  .nav a:hover { color: var(--ink); }
+
+  .button {
+    display: inline-block;
+    padding: 13px 22px;
+    background: var(--green);
+    color: #fff;
+    border: 1px solid var(--green);
+    border-radius: 3px;
+    font: 500 0.95rem/1.2 var(--sans);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .button:hover { background: var(--green-dark); }
+  .button-outline { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .button-outline:hover { background: var(--ink); color: #fff; }
+  .nav .button { color: #fff; }
+
+  /* Hero */
+  .hero { padding: 80px 0 72px; }
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-kicker { font-size: 0.95rem; color: var(--muted); margin-bottom: 20px; }
+  .hero h1 { margin-bottom: 24px; }
+  .hero-lead { font-size: 1.12rem; color: #3b413d; max-width: 31em; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .hero-photo { margin: 0; }
+  .hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .hero-photo figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 10px; }
+
+  /* Facts strip */
+  .facts { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .facts .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .fact { padding: 26px 24px 26px 0; }
+  .fact + .fact { padding-left: 24px; border-left: 1px solid var(--rule); }
+  .fact strong { display: block; font-family: var(--serif); font-size: 1.6rem; font-weight: 400; line-height: 1.2; }
+  .fact span { font-size: 0.9rem; color: var(--muted); }
+
+  /* Sections: label column + content column */
+  .section { padding: 96px 0; border-bottom: 1px solid var(--rule); }
+  .section .wrap {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: 64px;
+  }
+  .section-intro p { color: var(--muted); margin-top: 16px; max-width: 24em; }
+  .section-white { background: var(--white); }
+
+  /* Price table */
+  .price-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+  .price-table th {
+    text-align: left; font-weight: 500; font-size: 0.85rem; color: var(--muted);
+    padding: 0 16px 14px 0; border-bottom: 1px solid var(--ink);
+  }
+  .price-table td { padding: 24px 16px 24px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .price-table td:first-child { font-weight: 600; width: 30%; }
+  .price-table .amount { font-family: var(--serif); font-size: 1.75rem; line-height: 1.1; white-space: nowrap; }
+  .price-table .unit { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 4px; white-space: nowrap; }
+  .price-table td:last-child { color: #3b413d; }
+  .price-note { margin-top: 24px; font-size: 0.92rem; color: var(--muted); max-width: 40em; }
+
+  /* Photos */
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .photo-grid figure { margin: 0; }
+  .photo-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .photo-grid figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+
+  /* Included list */
+  .spec-list { margin: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; }
+  .spec-list div { padding: 20px 0; border-top: 1px solid var(--rule); }
+  .spec-list dt { font-weight: 600; }
+  .spec-list dd { margin: 4px 0 0; color: var(--muted); font-size: 0.95rem; }
+
+  /* Process */
+  .steps { list-style: none; margin: 0; padding: 0; }
+  .steps li {
+    display: grid; grid-template-columns: 56px 1fr; gap: 8px;
+    padding: 24px 0; border-top: 1px solid var(--rule);
+  }
+  .steps li:last-child { border-bottom: 1px solid var(--rule); }
+  .steps .num { font-family: var(--serif); font-size: 1.3rem; color: var(--muted); }
+  .steps p { color: var(--muted); margin-top: 4px; }
+
+  /* Contact + form */
+  .contact-details { margin-top: 32px; font-size: 0.97rem; }
+  .contact-details div { padding: 14px 0; border-top: 1px solid var(--rule); }
+  .contact-details span { display: block; font-size: 0.82rem; color: var(--muted); }
+  .contact-details a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .contact-details a:hover { border-color: var(--ink); }
+
+  .form { display: grid; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form label { display: grid; gap: 6px; font-size: 0.88rem; font-weight: 500; }
+  .form input, .form select, .form textarea {
+    font: 400 1rem var(--sans);
+    color: var(--ink);
+    padding: 12px 14px;
+    background: var(--white);
+    border: 1px solid #c4bfb3;
+    border-radius: 2px;
+    width: 100%;
+  }
+  .form input:focus, .form select:focus, .form textarea:focus {
+    outline: 2px solid var(--green); outline-offset: -1px; border-color: var(--green);
+  }
+  .form textarea { min-height: 110px; resize: vertical; }
+  .form-footer { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .form-footer small { font-size: 0.84rem; color: var(--muted); }
+  #form-status { font-size: 0.95rem; color: var(--green); }
+
+  /* FAQ */
+  .faq details { border-top: 1px solid var(--rule); }
+  .faq details:last-child { border-bottom: 1px solid var(--rule); }
+  .faq summary {
+    cursor: pointer; list-style: none; padding: 22px 40px 22px 0; position: relative;
+    font-weight: 600;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: ""; position: absolute; right: 4px; top: 50%;
+    width: 9px; height: 9px; margin-top: -7px;
+    border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink);
+    transform: rotate(45deg); transition: transform .2s;
+  }
+  .faq details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
+  .faq details p { padding: 0 0 24px; color: var(--muted); max-width: 40em; }
+
+  /* Footer */
+  .site-footer { background: var(--green-dark); color: #c9d2cc; padding: 64px 0 40px; font-size: 0.93rem; }
+  .site-footer .wrap { display: grid; grid-template-columns: 4fr 4fr 4fr; gap: 48px; }
+  .site-footer .logo { color: #fff; display: inline-block; margin-bottom: 12px; }
+  .site-footer h3 { color: #fff; font-size: 0.9rem; margin-bottom: 12px; }
+  .site-footer a { text-decoration: none; }
+  .site-footer a:hover { color: #fff; text-decoration: underline; }
+  .site-footer p + p { margin-top: 4px; }
+  .footer-bottom { grid-column: 1 / -1; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.15); font-size: 0.85rem; color: #93a199; }
+
+  @media (max-width: 960px) {
+    .nav a:not(.button) { display: none; }
+    .hero { padding: 48px 0 56px; }
+    .hero .wrap, .section .wrap, .site-footer .wrap { grid-template-columns: 1fr; gap: 36px; }
+    .facts .wrap { grid-template-columns: 1fr 1fr; }
+    .fact:nth-child(3) { padding-left: 0; border-left: 0; }
+    .fact:nth-child(n+3) { border-top: 1px solid var(--rule); }
+    .section { padding: 64px 0; }
+  }
+  @media (max-width: 600px) {
+    .wrap { padding: 0 20px; }
+    .spec-list, .form-row { grid-template-columns: 1fr; }
+    .photo-grid { gap: 12px; }
+    .fact strong { font-size: 1.3rem; }
+    .fact, .fact + .fact { padding-top: 20px; padding-bottom: 20px; }
+    .fact:nth-child(even) { padding-left: 16px; }
+    .price-table thead { display: none; }
+    .price-table tr { display: block; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+    .price-table td { display: block; padding: 0; border: 0; width: auto !important; }
+    .price-table td + td { margin-top: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#">Solplassen Camping</a>
+    <nav class="nav">
+      <a href="#priser">Priser</a>
+      <a href="#hyttene">Hyttene</a>
+      <a href="#inkludert">Inkludert</a>
+      <a href="#sporsmal">Spørsmål</a>
+      <a class="button" href="#forespørsel">Be om tilbud</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="hero-kicker">Firmabolig i Stavern</p>
+        <h1>Hytter for bedrifter og arbeidslag</h1>
+        <p class="hero-lead">
+          Møblerte hytter for ansatte som skal jobbe i Stavern, Larvik eller nærliggende områder –
+          over dager, uker eller måneder. Vi har opptil 22 hytter, og tilbyr løsninger for både
+          mindre og større arbeidslag.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#forespørsel">Be om tilbud</a>
+          <a class="button button-outline" href="tel:+4733199282">Ring 33 19 92 82</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="img/hytte-4.jpg" alt="Hytte på Solplassen Camping med uteplass">
+        <figcaption>Hytte på Solplassen Camping, Stavern</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="facts">
+    <div class="wrap">
+      <div class="fact"><strong>22 hytter</strong><span>Plass til større arbeidslag</span></div>
+      <div class="fact"><strong>Fra 800 kr</strong><span>Per hytte per døgn</span></div>
+      <div class="fact"><strong>Sengetøy inkludert</strong><span>Ved opphold over 14 døgn</span></div>
+      <div class="fact"><strong>Kort og lang leie</strong><span>Fleksible perioder</span></div>
+    </div>
+  </div>
+
+  <section class="section section-white" id="priser">
+    <div class="wrap">
+      <div class="section-intro">
+        <h2>Bedriftspriser</h2>
+        <p>Prisen gjelder per hytte per døgn. Jo lengre oppholdet er, jo lavere blir døgnprisen.</p>
+      </div>
+      <div>
+        <table class="price-table">
+          <thead>
+            <tr><th>Leieperiode</th><th>Pris</th><th>Inkludert</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Opptil 14 døgn</td>
+              <td><span class="amount">1 000 kr</span><span class="unit">per hytte per døgn</span></td>
+              <td>Utvask kommer i tillegg</td>
+            </tr>
+            <tr>
+              <td>Over 14 døgn</td>
+              <td><span class="amount">800 kr</span><span class="unit">per hytte per døgn</span></td>
+              <td>Sengetøysett. Utvask kommer i tillegg</td>
+            </tr>
+            <tr>
+              <td>Over 1 måned</td>
+              <td><span class="amount">800 kr</span><span class="unit">per hytte per døgn</span></td>
+              <td>Sengetøysett, vask og nytt sengetøy hver 14. dag</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="price-note">
+          Ved opphold under én måned koster utvask 1&nbsp;000&nbsp;kr per hytte. Vasker dere hytta selv før
+          utreise, slipper dere å betale for utvask. Eksempel: én hytte i 30 døgn koster 24&nbsp;000&nbsp;kr.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="hyttene">
+    <div class="wrap">
+      <div class="section-intro">
+        <h2>Hyttene</h2>
+        <p>
+          Hyttene ligger i rolige omgivelser like utenfor Stavern sentrum. Alle er møblerte, med
+          kjøkken og bad, og parkering på området.
+        </p>
+      </div>
+      <div class="photo-grid">
+        <figure>
+          <img src="img/hytte-6.jpg" alt="Hvit hytte med overbygd veranda">
+          <figcaption>Hytte med overbygd veranda</figcaption>
+        </figure>
+        <figure>
+          <img src="img/hytte-x.jpg" alt="Rød hytte omgitt av furutrær">
+          <figcaption>Hytte med terrasse</figcaption>
+        </figure>
+        <figure>
+          <img src="img/hytte-4-5.jpg" alt="Rød hytte med uteplass og benk">
+          <figcaption>Hytte med uteplass</figcaption>
+        </figure>
+        <figure>
+          <img src="img/hytte-2-4.jpg" alt="Rød tømmerhytte med veranda">
+          <figcaption>Tømmerhytte med veranda</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white" id="inkludert">
+    <div class="wrap">
+      <div class="section-intro">
+        <h2>Dette er inkludert</h2>
+        <p>Et praktisk bosted for ansatte som skal være i området over tid.</p>
+      </div>
+      <dl class="spec-list">
+        <div><dt>Kjøkken</dt><dd>Laget kan lage mat selv.</dd></div>
+        <div><dt>Bad</dt><dd>I hytta.</dd></div>
+        <div><dt>Møblert</dt><dd>Klar til innflytting.</dd></div>
+        <div><dt>Parkering</dt><dd>På området.</dd></div>
+        <div><dt>Sengetøy</dt><dd>Sengetøysett inkludert ved opphold over 14 døgn.</dd></div>
+        <div><dt>Vask</dt><dd>Inkludert ved opphold over én måned, med nytt sengetøy hver 14. dag.</dd></div>
+        <div><dt>Fleksibel leieperiode</dt><dd>Kort- og langtidsleie.</dd></div>
+        <div><dt>Flere hytter samtidig</dt><dd>Opptil 22 hytter til samme prosjekt.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="egnet">
+    <div class="wrap">
+      <div class="section-intro">
+        <h2>Slik bestiller dere</h2>
+        <p>Egnet for byggeprosjekter, anleggsarbeid, veiarbeid, serviceoppdrag og andre midlertidige arbeidsperioder.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="num">1</span>
+          <div><h3>Send en forespørsel</h3><p>Oppgi antall personer, antall hytter, ønsket innflyttingsdato og forventet lengde på oppholdet.</p></div>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <div><h3>Få tilbud</h3><p>Vi sjekker tilgjengelighet og foreslår en løsning som passer prosjektet.</p></div>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <div><h3>Flytt inn</h3><p>Hyttene er møblerte og klare når laget kommer.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-white" id="forespørsel">
+    <div class="wrap">
+      <div class="section-intro">
+        <h2>Be om tilbud</h2>
+        <p>Fyll ut skjemaet, eller ta kontakt direkte.</p>
+        <div class="contact-details">
+          <div><span>Telefon, hver dag 12–18</span><a href="tel:+4733199282">+47 33 19 92 82</a></div>
+          <div><span>E-post</span><a href="mailto:solplassen@solplassen.no">solplassen@solplassen.no</a></div>
+          <div><span>Adresse</span>Rakkeveien 99, 3294 Stavern</div>
+        </div>
+      </div>
+
+      <form class="form" id="lead-form" action="https://formspree.io/f/DIN-KODE" method="POST" novalidate>
+        <div class="form-row">
+          <label>Firma<input name="firma" autocomplete="organization" required></label>
+          <label>Kontaktperson<input name="navn" autocomplete="name" required></label>
+        </div>
+        <div class="form-row">
+          <label>Telefon<input type="tel" name="telefon" autocomplete="tel" required></label>
+          <label>E-post<input type="email" name="epost" autocomplete="email" required></label>
+        </div>
+        <div class="form-row">
+          <label>Antall personer<input type="number" name="personer" min="1"></label>
+          <label>Antall hytter<input type="number" name="hytter" min="1" max="22"></label>
+        </div>
+        <div class="form-row">
+          <label>Ønsket innflytting<input type="date" name="innflytting"></label>
+          <label>Forventet lengde
+            <select name="varighet">
+              <option value="">Velg</option>
+              <option>Opptil 14 døgn</option>
+              <option>15 døgn til 1 måned</option>
+              <option>Over 1 måned</option>
+              <option>Usikker</option>
+            </select>
+          </label>
+        </div>
+        <label>Melding<textarea name="melding"></textarea></label>
+        <div class="form-footer">
+          <button class="button" type="submit">Send forespørsel</button>
+          <small>Opplysningene brukes kun til å besvare forespørselen.</small>
+        </div>
+        <p id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section faq" id="sporsmal">
+    <div class="wrap">
+      <div class="section-intro">
+        <h2>Spørsmål og svar</h2>
+      </div>
+      <div>
+        <details>
+          <summary>Hva koster det å leie en hytte?</summary>
+          <p>Opptil 14 døgn er prisen 1 000 kr per hytte per døgn. Over 14 døgn er prisen 800 kr per hytte per døgn, med sengetøysett inkludert.</p>
+        </details>
+        <details>
+          <summary>Hva koster utvask?</summary>
+          <p>Ved opphold under én måned koster utvask 1 000 kr per hytte. Vasker dere hytta selv før utreise, betaler dere ikke for utvask. Ved opphold over én måned er vask inkludert.</p>
+        </details>
+        <details>
+          <summary>Hva er inkludert ved opphold over én måned?</summary>
+          <p>Sengetøysett, vask og nytt sengetøy hver 14. dag.</p>
+        </details>
+        <details>
+          <summary>Kan vi leie flere hytter samtidig?</summary>
+          <p>Ja. Vi har opptil 22 hytter og kan tilby løsninger for både mindre og større arbeidslag.</p>
+        </details>
+        <details>
+          <summary>Hvilke oppdrag passer hyttene for?</summary>
+          <p>Byggeprosjekter, anleggsarbeid, veiarbeid, serviceoppdrag og andre midlertidige arbeidsperioder.</p>
+        </details>
+        <details>
+          <summary>Hvordan finner vi frem?</summary>
+          <p>Adressen er Rakkeveien 99, 3294 Stavern. Ikke følg GPS – følg riksvei 301 til dere ser skilt til campingen.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="#">Solplassen Camping</a>
+      <p>Firmabolig for bedrifter og arbeidslag i Stavern.</p>
+    </div>
+    <div>
+      <h3>Kontakt</h3>
+      <p><a href="tel:+4733199282">+47 33 19 92 82</a></p>
+      <p><a href="mailto:solplassen@solplassen.no">solplassen@solplassen.no</a></p>
+      <p>Rakkeveien 99, 3294 Stavern</p>
+    </div>
+    <div>
+      <h3>Solplassen</h3>
+      <p><a href="https://www.solplassen.no">solplassen.no</a></p>
+      <p><a href="https://www.solplassen.no/salgsbetingelser/">Kjøpsbetingelser</a></p>
+    </div>
+    <div class="footer-bottom">© <span id="year">2026</span> Solplassen Camping AS</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  (function () {
+    var form = document.getElementById("lead-form");
+    var status = document.getElementById("form-status");
+    var fields = ["firma", "navn", "telefon", "epost", "personer", "hytter", "innflytting", "varighet", "melding"];
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      var data = new FormData(form);
+
+      // Uten Formspree-kode: send via brukerens e-postprogram.
+      if (form.action.indexOf("DIN-KODE") !== -1) {
+        var body = fields.map(function (k) { return k + ": " + (data.get(k) || "-"); }).join("\n");
+        window.location.href = "mailto:solplassen@solplassen.no"
+          + "?subject=" + encodeURIComponent("Forespørsel firmabolig – " + (data.get("firma") || ""))
+          + "&body=" + encodeURIComponent(body);
+        status.textContent = "E-postprogrammet ditt åpnes. Trykk send for å fullføre.";
+        return;
+      }
+
+      fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } })
+        .then(function (res) {
+          if (!res.ok) throw new Error();
+          form.reset();
+          status.textContent = "Takk. Vi tar kontakt så snart som mulig.";
+        })
+        .catch(function () {
+          status.textContent = "Noe gikk galt. Ring oss på +47 33 19 92 82.";
+        });
+    });
+  })();
+</script>
+</body>
+</html>
