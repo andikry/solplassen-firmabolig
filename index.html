@@ -92,7 +92,7 @@
   .hero-lead { font-size: 1.12rem; color: #3b413d; max-width: 31em; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
   .hero-photo { margin: 0; }
-  .hero-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .hero-photo img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
   .hero-photo figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 10px; }
 
   /* Facts strip */
@@ -129,7 +129,8 @@
   /* Photos */
   .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .photo-grid figure { margin: 0; }
-  .photo-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .photo-grid img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  .photo-grid-3 { grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .photo-grid figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
 
   /* Included list */
@@ -215,6 +216,7 @@
     .wrap { padding: 0 20px; }
     .spec-list, .form-row { grid-template-columns: 1fr; }
     .photo-grid { gap: 12px; }
+    .photo-grid-3 { grid-template-columns: 1fr 1fr; }
     .fact strong { font-size: 1.3rem; }
     .fact, .fact + .fact { padding-top: 20px; padding-bottom: 20px; }
     .fact:nth-child(even) { padding-left: 16px; }
@@ -257,8 +259,8 @@
         </div>
       </div>
       <figure class="hero-photo">
-        <img src="img/hytte-4.jpg" alt="Hytte på Solplassen Camping med uteplass">
-        <figcaption>Hytte på Solplassen Camping, Stavern</figcaption>
+        <img src="img/bungalow-stue-kjokken.jpg" alt="Stue og kjøkken i 6-mannshytte på Solplassen Camping">
+        <figcaption>Stue og kjøkken i en av 6-mannshyttene</figcaption>
       </figure>
     </div>
   </section>
@@ -318,22 +320,30 @@
           kjøkken og bad, og parkering på området.
         </p>
       </div>
-      <div class="photo-grid">
+      <div class="photo-grid photo-grid-3">
         <figure>
-          <img src="img/hytte-6.jpg" alt="Hvit hytte med overbygd veranda">
-          <figcaption>Hytte med overbygd veranda</figcaption>
+          <img src="img/bungalow-kjokken.jpg" alt="Kjøkken og spisebord i 6-mannshytte">
+          <figcaption>Kjøkken, 6-mannshytte</figcaption>
         </figure>
         <figure>
-          <img src="img/hytte-x.jpg" alt="Rød hytte omgitt av furutrær">
-          <figcaption>Hytte med terrasse</figcaption>
+          <img src="img/hytte-c-stue.jpg" alt="Stue med sofa i 4/5-mannshytte">
+          <figcaption>Stue, 4/5-mannshytte</figcaption>
         </figure>
         <figure>
-          <img src="img/hytte-4-5.jpg" alt="Rød hytte med uteplass og benk">
-          <figcaption>Hytte med uteplass</figcaption>
+          <img src="img/hytte-c-soverom.jpg" alt="Soverom med dobbeltseng">
+          <figcaption>Soverom, 4/5-mannshytte</figcaption>
         </figure>
         <figure>
-          <img src="img/hytte-2-4.jpg" alt="Rød tømmerhytte med veranda">
-          <figcaption>Tømmerhytte med veranda</figcaption>
+          <img src="img/hytte-c-bad.jpg" alt="Bad med dusj og toalett">
+          <figcaption>Bad, 4/5-mannshytte</figcaption>
+        </figure>
+        <figure>
+          <img src="img/bungalow-ute.jpg" alt="Hvit 6-mannshytte med overbygd veranda">
+          <figcaption>6-mannshytte med veranda</figcaption>
+        </figure>
+        <figure>
+          <img src="img/hytte-c-ute.jpg" alt="Rød 4/5-mannshytte omgitt av furutrær">
+          <figcaption>4/5-mannshytte</figcaption>
         </figure>
       </div>
     </div>
