@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Firmabolig i Stavern – hytter for bedrifter og arbeidslag | Solplassen Camping</title>
-<meta name="description" content="Møblerte hytter for bedrifter og arbeidslag i Stavern. Opptil 22 hytter med kjøkken og bad. Fra 800 kr per hytte per døgn ved opphold over 14 døgn. Sengetøy inkludert.">
+<meta name="description" content="Møblerte hytter for bedrifter og arbeidslag i Stavern. Opptil 22 hytter med kjøkken og bad. Fra 800 kr eks. mva. per hytte per døgn ved opphold over 14 døgn. Sengetøy inkludert.">
 <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="64x64">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,7 +88,7 @@
   .nav .button { color: #fff; }
 
   /* Hero */
-  .hero { padding: 80px 0 72px; }
+  .hero { padding: 80px 0 72px; background: #f8f4ec; }
   .hero .wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -104,12 +104,17 @@
   .hero-photo figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 10px; }
 
   /* Facts strip */
-  .facts { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .facts {
+    background: var(--navy);
+    color: var(--white);
+    border-top: 1px solid var(--navy);
+    border-bottom: 1px solid var(--navy);
+  }
   .facts .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
   .fact { padding: 26px 24px 26px 0; }
-  .fact + .fact { padding-left: 24px; border-left: 1px solid var(--rule); }
+  .fact + .fact { padding-left: 24px; border-left: 1px solid rgba(255,255,255,.18); }
   .fact strong { display: block; font-family: var(--serif); font-size: 1.6rem; font-weight: 400; line-height: 1.2; }
-  .fact span { font-size: 0.9rem; color: var(--muted); }
+  .fact span { font-size: 0.9rem; color: #c9d2e0; }
 
   /* Sections: label column + content column */
   .section { padding: 96px 0; border-bottom: 1px solid var(--rule); }
@@ -217,7 +222,7 @@
     .hero .wrap, .section .wrap, .site-footer .wrap { grid-template-columns: 1fr; gap: 36px; }
     .facts .wrap { grid-template-columns: 1fr 1fr; }
     .fact:nth-child(3) { padding-left: 0; border-left: 0; }
-    .fact:nth-child(n+3) { border-top: 1px solid var(--rule); }
+    .fact:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.18); }
     .section { padding: 64px 0; }
   }
   @media (max-width: 600px) {
@@ -280,7 +285,7 @@
   <div class="facts">
     <div class="wrap">
       <div class="fact"><strong>22 hytter</strong><span>Plass til større arbeidslag</span></div>
-      <div class="fact"><strong>Fra 800 kr</strong><span>Per hytte per døgn</span></div>
+      <div class="fact"><strong>Fra 800 kr</strong><span>Per hytte per døgn, eks. mva.</span></div>
       <div class="fact"><strong>Sengetøy inkludert</strong><span>Ved opphold over 14 døgn</span></div>
       <div class="fact"><strong>Kort og lang leie</strong><span>Fleksible perioder</span></div>
     </div>
@@ -290,7 +295,7 @@
     <div class="wrap">
       <div class="section-intro">
         <h2>Bedriftspriser</h2>
-        <p>Prisen gjelder per hytte per døgn. Jo lengre oppholdet er, jo lavere blir døgnprisen.</p>
+        <p>Prisen gjelder per hytte per døgn og er eks. mva. Jo lengre oppholdet er, jo lavere blir døgnprisen.</p>
       </div>
       <div>
         <table class="price-table">
@@ -300,24 +305,25 @@
           <tbody>
             <tr>
               <td>Opptil 14 døgn</td>
-              <td><span class="amount">1 000 kr</span><span class="unit">per hytte per døgn</span></td>
+              <td><span class="amount">1 000 kr</span><span class="unit">per hytte per døgn, eks. mva.</span></td>
               <td>Utvask kommer i tillegg</td>
             </tr>
             <tr>
               <td>Over 14 døgn</td>
-              <td><span class="amount">800 kr</span><span class="unit">per hytte per døgn</span></td>
+              <td><span class="amount">800 kr</span><span class="unit">per hytte per døgn, eks. mva.</span></td>
               <td>Sengetøysett. Utvask kommer i tillegg</td>
             </tr>
             <tr>
               <td>Over 1 måned</td>
-              <td><span class="amount">800 kr</span><span class="unit">per hytte per døgn</span></td>
+              <td><span class="amount">800 kr</span><span class="unit">per hytte per døgn, eks. mva.</span></td>
               <td>Sengetøysett, vask og nytt sengetøy hver 14. dag</td>
             </tr>
           </tbody>
         </table>
         <p class="price-note">
           Ved opphold under én måned koster utvask 1&nbsp;000&nbsp;kr per hytte. Vasker dere hytta selv før
-          utreise, slipper dere å betale for utvask. Eksempel: én hytte i 30 døgn koster 24&nbsp;000&nbsp;kr.
+          utreise, slipper dere å betale for utvask. Alle beløp er eks. mva. Eksempel: én hytte i 30 døgn
+          koster 24&nbsp;000&nbsp;kr eks. mva.
         </p>
       </div>
     </div>
@@ -458,11 +464,11 @@
       <div>
         <details>
           <summary>Hva koster det å leie en hytte?</summary>
-          <p>Opptil 14 døgn er prisen 1 000 kr per hytte per døgn. Over 14 døgn er prisen 800 kr per hytte per døgn, med sengetøysett inkludert.</p>
+          <p>Opptil 14 døgn er prisen 1 000 kr per hytte per døgn. Over 14 døgn er prisen 800 kr per hytte per døgn, med sengetøysett inkludert. Alle priser er eks. mva.</p>
         </details>
         <details>
           <summary>Hva koster utvask?</summary>
-          <p>Ved opphold under én måned koster utvask 1 000 kr per hytte. Vasker dere hytta selv før utreise, betaler dere ikke for utvask. Ved opphold over én måned er vask inkludert.</p>
+          <p>Ved opphold under én måned koster utvask 1 000 kr eks. mva. per hytte. Vasker dere hytta selv før utreise, betaler dere ikke for utvask. Ved opphold over én måned er vask inkludert.</p>
         </details>
         <details>
           <summary>Hva er inkludert ved opphold over én måned?</summary>
