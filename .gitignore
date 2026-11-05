@@ -4,3 +4,7 @@ NOTATER.md
 # Bilder som ikke brukes på siden
 img/solplassen*.jpg
 img/leilighet.jpg
+
+# Lokale npm- og byggfiler
+node_modules/
+dist/
