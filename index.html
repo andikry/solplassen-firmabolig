@@ -233,6 +233,30 @@
   .site-footer a:hover { color: #fff; text-decoration: underline; }
   .site-footer p + p { margin-top: 4px; }
   .footer-bottom { grid-column: 1 / -1; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.15); font-size: 0.85rem; color: #8b95a8; }
+  .cookie-settings {
+    padding: 0; border: 0; background: none; color: inherit; font: inherit;
+    text-decoration: underline; cursor: pointer;
+  }
+  .cookie-settings:hover { color: #fff; }
+
+  /* Samtykke til valgfri markedsføringsmåling */
+  .cookie-banner {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 100;
+    background: var(--white);
+    border-top: 1px solid var(--rule);
+    box-shadow: 0 -8px 28px rgba(8,26,52,.12);
+  }
+  .cookie-banner[hidden] { display: none; }
+  .cookie-banner .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 32px; padding-top: 18px; padding-bottom: 18px;
+  }
+  .cookie-banner p { max-width: 700px; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+  .cookie-banner strong { color: var(--ink); }
+  .cookie-actions { display: flex; align-items: center; gap: 10px; flex: none; }
+  .cookie-actions .button { white-space: nowrap; }
+  .cookie-reject { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .cookie-reject:hover { background: var(--ink); color: var(--white); }
 
   @media (max-width: 960px) {
     .nav a:not(.button) { display: none; }
@@ -259,27 +283,13 @@
     .price-table tr { display: block; padding: 20px 0; border-bottom: 1px solid var(--rule); }
     .price-table td { display: block; padding: 0; border: 0; width: auto !important; }
     .price-table td + td { margin-top: 8px; }
+    .cookie-banner .wrap { display: grid; gap: 14px; }
+    .cookie-actions { align-items: stretch; }
+    .cookie-actions .button { flex: 1; padding: 11px 10px; font-size: 0.82rem; }
   }
 </style>
-<!-- Meta Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1090191617161338');
-  fbq('track', 'PageView');
-</script>
-<!-- End Meta Pixel Code -->
 </head>
 <body>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1090191617161338&amp;ev=PageView&amp;noscript=1"
-alt=""></noscript>
 
 <header class="site-header">
   <div class="wrap">
@@ -549,21 +559,131 @@ alt=""></noscript>
       <h3>Solplassen</h3>
       <p><a href="https://www.solplassen.no">solplassen.no</a></p>
       <p><a href="https://www.solplassen.no/salgsbetingelser/">Kjøpsbetingelser</a></p>
+      <p><button class="cookie-settings" id="cookie-settings" type="button">Endre cookievalg</button></p>
     </div>
     <div class="footer-bottom">© <span id="year">2026</span> Solplassen Camping AS</div>
   </div>
 </footer>
 
+<section class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Valg for markedsføringscookies" hidden>
+  <div class="wrap">
+    <p>
+      <strong>Valgfri markedsføringsmåling</strong><br>
+      Vi ønsker å bruke Meta Pixel til å måle effekten av annonser. Pixel aktiveres bare hvis du tillater markedsføringscookies.
+    </p>
+    <div class="cookie-actions">
+      <button class="button cookie-reject" id="cookie-reject" type="button">Kun nødvendige</button>
+      <button class="button" id="cookie-accept" type="button">Tillat markedsføring</button>
+    </div>
+  </div>
+</section>
+
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
   (function () {
+    var PIXEL_ID = "1090191617161338";
+    var CONSENT_KEY = "solplassen_cookie_consent";
+    var CONSENT_VERSION = 1;
+    var marketingConsent = false;
+    var pixelInitialized = false;
+    var pageViewSent = false;
+    var trackedSubmissions = {};
+    var submissionNumber = 0;
+    var banner = document.getElementById("cookie-banner");
+    var acceptButton = document.getElementById("cookie-accept");
+    var rejectButton = document.getElementById("cookie-reject");
+    var settingsButton = document.getElementById("cookie-settings");
     var form = document.getElementById("lead-form");
     var status = document.getElementById("form-status");
+    var submitButton = form.querySelector('[type="submit"]');
     var fields = ["firma", "navn", "telefon", "epost", "personer", "hytter", "innflytting", "varighet", "melding"];
+
+    function readConsent() {
+      try {
+        var saved = JSON.parse(localStorage.getItem(CONSENT_KEY));
+        if (!saved || saved.version !== CONSENT_VERSION || typeof saved.marketing !== "boolean") return null;
+        return saved.marketing;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function saveConsent(allowed) {
+      try {
+        localStorage.setItem(CONSENT_KEY, JSON.stringify({
+          version: CONSENT_VERSION,
+          marketing: allowed,
+          savedAt: new Date().toISOString()
+        }));
+      } catch (error) {
+        // Valget gjelder fortsatt for denne sidevisningen hvis lagring er blokkert.
+      }
+    }
+
+    function clearMetaCookies() {
+      ["_fbp", "_fbc"].forEach(function (name) {
+        document.cookie = name + "=; Max-Age=0; path=/; SameSite=Lax";
+        document.cookie = name + "=; Max-Age=0; path=/; domain=.solplassen.no; SameSite=Lax";
+        document.cookie = name + "=; Max-Age=0; path=/; domain=bedrift.solplassen.no; SameSite=Lax";
+      });
+    }
+
+    function initializeMetaPixel() {
+      if (!marketingConsent || pixelInitialized) return;
+      pixelInitialized = true;
+
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,"script",
+      "https://connect.facebook.net/en_US/fbevents.js");
+
+      fbq("set", "autoConfig", false, PIXEL_ID);
+      fbq("init", PIXEL_ID);
+      if (!pageViewSent) {
+        fbq("track", "PageView");
+        pageViewSent = true;
+      }
+    }
+
+    function setConsent(allowed) {
+      marketingConsent = allowed;
+      saveConsent(allowed);
+      banner.hidden = true;
+
+      if (allowed) {
+        initializeMetaPixel();
+      } else {
+        if (typeof window.fbq === "function" && pixelInitialized) fbq("consent", "revoke");
+        clearMetaCookies();
+      }
+    }
+
+    function trackLeadOnce(submissionId) {
+      if (!marketingConsent || !pixelInitialized || trackedSubmissions[submissionId]) return;
+      trackedSubmissions[submissionId] = true;
+      fbq("track", "Lead");
+    }
+
+    acceptButton.addEventListener("click", function () { setConsent(true); });
+    rejectButton.addEventListener("click", function () { setConsent(false); });
+    settingsButton.addEventListener("click", function () { banner.hidden = false; });
+
+    var savedConsent = readConsent();
+    if (savedConsent === true) {
+      marketingConsent = true;
+      initializeMetaPixel();
+    } else if (savedConsent === null) {
+      banner.hidden = false;
+    }
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
+      if (form.dataset.submitting === "true") return;
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
@@ -580,14 +700,23 @@ alt=""></noscript>
         return;
       }
 
+      var submissionId = String(++submissionNumber);
+      form.dataset.submitting = "true";
+      submitButton.disabled = true;
+
       fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } })
         .then(function (res) {
           if (!res.ok) throw new Error();
+          trackLeadOnce(submissionId);
           form.reset();
           status.textContent = "Takk. Vi tar kontakt så snart som mulig.";
         })
         .catch(function () {
           status.textContent = "Noe gikk galt. Ring oss på +47 33 19 92 82.";
+        })
+        .finally(function () {
+          form.dataset.submitting = "false";
+          submitButton.disabled = false;
         });
     });
   })();
